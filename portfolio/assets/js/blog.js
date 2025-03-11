@@ -11,7 +11,7 @@ const blogData = {
     image: 'assets/img/blog.jpg', // Replace with your image URL
     title: 'My Journey: From Aspiring Doctor to Tech Enthusiast',
     content: `
-      <p><strong>Published on:</strong> [Insert Date]</p>
+      <p><strong>Published on:</strong> 10/3/2025</p>
       <p>
         Life is a journey filled with twists, turns, and unexpected opportunities. My story is no different. From dreaming of becoming a doctor to finding my passion in technology, my journey has been one of resilience, adaptability, and continuous learning.
       </p>
@@ -61,7 +61,7 @@ const blogData = {
     image: 'assets/img/ai.jpg', // Replace with AI-related image
     title: 'The Future of AI in Business',
     content: `
-      <p><strong>Published on:</strong> [Insert Date]</p>
+      <p><strong>Published on:</strong> 13/3/2025</p>
       <p>
         Artificial Intelligence (AI) is no longer a futuristic concept—it’s here, and it’s transforming industries. From automating repetitive tasks to providing data-driven insights, AI is reshaping the way businesses operate. In this blog, we explore how AI is being used today and what the future holds for businesses leveraging this powerful technology.
       </p>
@@ -93,7 +93,7 @@ const blogData = {
     image: 'assets/img/svgpa.webp', // Replace with skill vs. CGPA image
     title: 'Skill vs. CGPA: What Matters More?',
     content: `
-      <p><strong>Published on:</strong> [Insert Date]</p>
+      <p><strong>Published on:</strong> 14/3/2025</p>
       <p>
         In the debate between skills and CGPA, which one holds more weight in today’s job market? While a high CGPA may open doors, practical skills are often the key to long-term success. In this blog, we explore the importance of balancing academics with skill development and how to thrive in a competitive world.
       </p>

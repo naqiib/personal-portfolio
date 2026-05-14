@@ -1,378 +1,1203 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naqib Zakir — Frontend Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --surface: #12121a;
+            --surface2: #1a1a26;
+            --accent: #6c63ff;
+            --accent2: #ff6584;
+            --accent3: #43e97b;
+            --text: #e8e8f0;
+            --muted: #6b6b80;
+            --border: rgba(108,99,255,0.15);
+            --font-display: 'Syne', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+        }
 
-        <link rel="stylesheet" href="assets/css/styles.css">
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        <!-- =====BOX ICONS===== -->
-        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
-        <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+        html { scroll-behavior: smooth; }
 
-        <title>naqib portfolio</title>
-    </head>
-    <body>
-       <!--===== HEADER =====-->
-<header class="l-header">
-    <nav class="nav bd-grid">
-      <div>
-        <a href="#" class="nav__logo">
-          <img src="assets/img/logo.png" alt="Logo" class="nav__logo-img">  naqib zakir<!-- Add your logo here -->
-        
-        </a>
-      </div>
-  
-      <div class="nav__menu" id="nav-menu">
-        <ul class="nav__list">
-          <li class="nav__item"><a href="#home" class="nav__link active-link">Home</a></li>
-          <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
-          <li class="nav__item"><a href="#skills" class="nav__link">Skills</a></li>
-          <li class="nav__item"><a href="#work" class="nav__link">Work</a></li>
-          <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
-          <li class="nav__item"><a href="blog.html" class="nav__link">Blog</a></li>
-        </ul>
-      </div>
-  
-      <div class="nav__toggle" id="nav-toggle">
-        <i class='bx bx-menu'></i>
-      </div>
-    </nav>
-  </header>
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
 
-        <main class="l-main">
-            <!--===== HOME =====-->
-          <!--===== HOME =====-->
-<section class="home bd-grid" id="home">
-    <div class="home__data">
-        <h1 class="home__title">Hi,<br>I'am <span class="home__title-color">Naqib</span><br> Frontend Developer</h1>
+        /* ── CURSOR ── */
+        .cursor {
+            width: 10px; height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform .1s, width .2s, height .2s, background .2s;
+            mix-blend-mode: screen;
+        }
+        .cursor-follower {
+            width: 36px; height: 36px;
+            border: 1.5px solid rgba(108,99,255,.5);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: transform .3s cubic-bezier(.23,1,.32,1), width .3s, height .3s;
+        }
 
-        <a href="https://wa.me/+923075764607?text=Hello%20Naqib,%20I%20want%20to%20contact%20you." class="button" target="_blank">
-            Contact
-        </a>
+        /* ── NAV ── */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 5vw;
+            background: rgba(10,10,15,0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            transition: padding .3s;
+        }
+        .nav-logo {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: -0.03em;
+        }
+        .nav-logo span { color: var(--accent); }
+        .nav-links {
+            display: flex; gap: 2.5rem;
+            list-style: none;
+        }
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: .85rem;
+            font-weight: 500;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            transition: color .2s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 0; height: 2px;
+            background: var(--accent);
+            transition: width .3s cubic-bezier(.23,1,.32,1);
+        }
+        .nav-links a:hover { color: var(--text); }
+        .nav-links a:hover::after { width: 100%; }
+
+        .nav-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--text);
+            cursor: pointer;
+            background: none; border: none;
+        }
+
+        /* ── HERO ── */
+        #home {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            padding: 8rem 5vw 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute; inset: 0;
+            background: 
+                radial-gradient(ellipse 60% 60% at 80% 50%, rgba(108,99,255,.12) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 20% 80%, rgba(255,101,132,.08) 0%, transparent 60%);
+        }
+
+        .hero-grid-lines {
+            position: absolute; inset: 0;
+            background-image: 
+                linear-gradient(rgba(108,99,255,.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(108,99,255,.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .hero-content { position: relative; z-index: 1; }
+
+        .hero-eyebrow {
+            display: inline-flex; align-items: center; gap: .6rem;
+            font-size: .78rem;
+            font-weight: 500;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+        .hero-eyebrow::before {
+            content: '';
+            width: 32px; height: 1px;
+            background: var(--accent);
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.8rem, 6vw, 5.5rem);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+        }
+        .hero-title .line { display: block; }
+        .hero-title .accent { color: var(--accent); }
+        .hero-title .stroke {
+            -webkit-text-stroke: 2px var(--accent);
+            color: transparent;
+        }
+
+        .hero-desc {
+            color: var(--muted);
+            font-size: 1rem;
+            max-width: 400px;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .hero-cta {
+            display: flex; gap: 1rem; flex-wrap: wrap;
+        }
+        .btn {
+            display: inline-flex; align-items: center; gap: .5rem;
+            padding: .85rem 2rem;
+            border-radius: 100px;
+            font-size: .9rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all .3s cubic-bezier(.23,1,.32,1);
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background: #7c75ff;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(108,99,255,.4);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Hero visual side */
+        .hero-visual {
+            position: relative; z-index: 1;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .hero-blob-wrap {
+            position: relative;
+            width: 380px; height: 380px;
+        }
+        .hero-blob-bg {
+            position: absolute; inset: -20px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, var(--accent), var(--accent2), var(--accent3), var(--accent));
+            filter: blur(60px);
+            opacity: .3;
+            animation: rotate 8s linear infinite;
+        }
+        @keyframes rotate { to { transform: rotate(360deg); } }
+
+        .hero-blob-ring {
+            position: absolute; inset: 0;
+            border-radius: 60% 40% 50% 70% / 55% 45% 65% 35%;
+            border: 1px solid rgba(108,99,255,.3);
+            animation: morph 6s ease-in-out infinite;
+        }
+        @keyframes morph {
+            0%, 100% { border-radius: 60% 40% 50% 70% / 55% 45% 65% 35%; }
+            50% { border-radius: 40% 60% 70% 30% / 45% 55% 35% 65%; }
+        }
+
+        .hero-avatar {
+            position: relative; z-index: 1;
+            width: 280px; height: 280px;
+            border-radius: 60% 40% 50% 70% / 55% 45% 65% 35%;
+            background: var(--surface2);
+            overflow: hidden;
+            border: 2px solid rgba(108,99,255,.3);
+            animation: morph 6s ease-in-out infinite;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .hero-avatar i {
+            font-size: 8rem;
+            color: var(--accent);
+            opacity: .3;
+        }
+
+        .hero-social {
+            position: absolute;
+            right: -60px; top: 50%;
+            transform: translateY(-50%);
+            display: flex; flex-direction: column; gap: 1rem;
+        }
+        .hero-social a {
+            width: 42px; height: 42px;
+            border-radius: 12px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--muted);
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: all .2s;
+        }
+        .hero-social a:hover {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+            transform: translateX(-4px);
+        }
+
+        .hero-stats {
+            margin-top: 3rem;
+            display: flex; gap: 2.5rem;
+        }
+        .stat-num {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text);
+        }
+        .stat-label {
+            font-size: .75rem;
+            color: var(--muted);
+            letter-spacing: .05em;
+        }
+
+        /* ── SECTIONS ── */
+        section {
+            padding: 6rem 5vw;
+        }
+
+        .section-tag {
+            display: inline-flex; align-items: center; gap: .5rem;
+            font-size: .72rem;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .section-tag::before {
+            content: '';
+            width: 24px; height: 1px;
+            background: var(--accent);
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+        .section-subtitle {
+            color: var(--muted);
+            font-size: .95rem;
+            max-width: 480px;
+            margin-bottom: 3.5rem;
+            font-weight: 300;
+        }
+
+        /* ── ABOUT ── */
+        #about { background: var(--surface); }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 5rem;
+            align-items: center;
+        }
+        .about-img-wrap {
+            position: relative;
+        }
+        .about-img-box {
+            width: 100%;
+            aspect-ratio: 4/5;
+            border-radius: 20px;
+            background: var(--surface2);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .about-img-box i { font-size: 6rem; color: var(--accent); opacity: .2; }
+        .about-img-badge {
+            position: absolute;
+            bottom: -20px; right: -20px;
+            background: var(--accent);
+            color: #fff;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            font-family: var(--font-display);
+            font-weight: 800;
+        }
+        .about-img-badge .num { font-size: 2rem; display: block; }
+        .about-img-badge .label { font-size: .7rem; letter-spacing: .1em; opacity: .8; }
+
+        .about-text {
+            color: var(--muted);
+            font-size: .95rem;
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+        .about-text strong { color: var(--text); font-weight: 500; }
+
+        .about-chips {
+            display: flex; flex-wrap: wrap; gap: .6rem;
+            margin-top: 2rem;
+        }
+        .chip {
+            padding: .4rem 1rem;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: .78rem;
+            color: var(--muted);
+            transition: all .2s;
+        }
+        .chip:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(108,99,255,.1);
+        }
+
+        /* ── SKILLS ── */
+        #skills { background: var(--bg); }
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .skill-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all .3s cubic-bezier(.23,1,.32,1);
+            position: relative;
+            overflow: hidden;
+        }
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform .4s cubic-bezier(.23,1,.32,1);
+        }
+        .skill-card:hover {
+            border-color: rgba(108,99,255,.4);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 60px rgba(0,0,0,.3);
+        }
+        .skill-card:hover::before { transform: scaleX(1); }
+
+        .skill-icon {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: .75rem;
+        }
+        .skill-name {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        .skill-bar-wrap {
+            background: var(--surface2);
+            border-radius: 100px;
+            height: 5px;
+            overflow: hidden;
+        }
+        .skill-bar {
+            height: 100%;
+            border-radius: 100px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            transform-origin: left;
+            transform: scaleX(0);
+            transition: transform 1s cubic-bezier(.23,1,.32,1);
+        }
+        .skill-bar.animated { transform: scaleX(1); }
+        .skill-percent {
+            margin-top: .5rem;
+            font-size: .8rem;
+            color: var(--muted);
+            text-align: right;
+        }
+
+        /* ── WORK ── */
+        #work { background: var(--surface); }
+        .work-tabs {
+            display: flex; gap: 1rem;
+            margin-bottom: 3rem;
+        }
+        .tab-btn {
+            padding: .6rem 1.5rem;
+            border-radius: 100px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--muted);
+            font-size: .85rem;
+            cursor: pointer;
+            transition: all .2s;
+            font-family: var(--font-body);
+        }
+        .tab-btn.active {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+        .tab-btn:hover:not(.active) {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .work-panel { display: none; }
+        .work-panel.active { display: grid; }
+
+        .dev-grid {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .project-card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all .3s cubic-bezier(.23,1,.32,1);
+            position: relative;
+            overflow: hidden;
+        }
+        .project-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(108,99,255,.06), transparent);
+            opacity: 0;
+            transition: opacity .3s;
+        }
+        .project-card:hover {
+            border-color: rgba(108,99,255,.4);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 60px rgba(0,0,0,.3);
+        }
+        .project-card:hover::after { opacity: 1; }
+
+        .project-num {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: rgba(108,99,255,.1);
+            line-height: 1;
+            margin-bottom: .5rem;
+        }
+        .project-title {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: .75rem;
+        }
+        .project-desc {
+            color: var(--muted);
+            font-size: .88rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+        .project-tags {
+            display: flex; flex-wrap: wrap; gap: .4rem;
+            margin-bottom: 1.5rem;
+        }
+        .tag {
+            padding: .3rem .7rem;
+            background: rgba(108,99,255,.1);
+            color: var(--accent);
+            border-radius: 6px;
+            font-size: .72rem;
+            font-weight: 500;
+        }
+        .project-link {
+            display: inline-flex; align-items: center; gap: .4rem;
+            color: var(--accent);
+            font-size: .85rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: gap .2s;
+        }
+        .project-link:hover { gap: .7rem; }
+
+        /* UI/UX Grid */
+        .uiux-grid {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .uiux-card {
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            transition: all .3s cubic-bezier(.23,1,.32,1);
+        }
+        .uiux-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 24px 64px rgba(0,0,0,.4);
+            border-color: rgba(108,99,255,.4);
+        }
+        .uiux-thumb {
+            width: 100%;
+            aspect-ratio: 16/10;
+            background: linear-gradient(135deg, var(--surface2), var(--surface));
+            display: flex; align-items: center; justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .uiux-thumb-1 { background: linear-gradient(135deg, #1a1a2e, #16213e); }
+        .uiux-thumb-2 { background: linear-gradient(135deg, #0d1117, #161b22); }
+        .uiux-thumb-3 { background: linear-gradient(135deg, #0f0c29, #302b63); }
+        .uiux-thumb i {
+            font-size: 4rem;
+            color: rgba(108,99,255,.3);
+        }
+        .uiux-thumb-overlay {
+            position: absolute; inset: 0;
+            background: rgba(108,99,255,.1);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0;
+            transition: opacity .3s;
+        }
+        .uiux-card:hover .uiux-thumb-overlay { opacity: 1; }
+        .uiux-thumb-overlay a {
+            padding: .6rem 1.5rem;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 100px;
+            text-decoration: none;
+            font-size: .85rem;
+            font-weight: 500;
+        }
+        .uiux-body { padding: 1.25rem 1.5rem; }
+        .uiux-title {
+            font-family: var(--font-display);
+            font-weight: 700;
+            margin-bottom: .4rem;
+        }
+        .uiux-desc {
+            color: var(--muted);
+            font-size: .85rem;
+            font-weight: 300;
+        }
+
+        /* ── CONTACT ── */
+        #contact { background: var(--bg); }
+        .contact-wrap {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        .contact-info h3 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .contact-info p {
+            color: var(--muted);
+            font-size: .9rem;
+            line-height: 1.8;
+            font-weight: 300;
+            margin-bottom: 2rem;
+        }
+        .contact-details {
+            display: flex; flex-direction: column; gap: 1rem;
+        }
+        .contact-item {
+            display: flex; align-items: center; gap: .75rem;
+            color: var(--muted);
+            font-size: .9rem;
+        }
+        .contact-item i {
+            font-size: 1.2rem;
+            color: var(--accent);
+            width: 40px; height: 40px;
+            background: rgba(108,99,255,.1);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .contact-form {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 2.5rem;
+        }
+        .form-group { margin-bottom: 1.25rem; }
+        .form-label {
+            display: block;
+            font-size: .78rem;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: .5rem;
+            font-weight: 500;
+        }
+        .form-control {
+            width: 100%;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: .85rem 1rem;
+            color: var(--text);
+            font-family: var(--font-body);
+            font-size: .9rem;
+            outline: none;
+            transition: border-color .2s;
+        }
+        .form-control:focus { border-color: var(--accent); }
+        textarea.form-control { resize: vertical; min-height: 130px; }
+        .form-control::placeholder { color: var(--muted); }
+
+        /* ── FOOTER ── */
+        footer {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 2.5rem 5vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .footer-logo {
+            font-family: var(--font-display);
+            font-weight: 800;
+            color: var(--text);
+            font-size: 1.1rem;
+        }
+        .footer-logo span { color: var(--accent); }
+        .footer-copy {
+            color: var(--muted);
+            font-size: .8rem;
+        }
+        .footer-social {
+            display: flex; gap: .75rem;
+        }
+        .footer-social a {
+            width: 36px; height: 36px;
+            border-radius: 10px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--muted);
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all .2s;
+        }
+        .footer-social a:hover {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+
+        /* ── SCROLL TOP ── */
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem; right: 2rem;
+            width: 44px; height: 44px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem;
+            text-decoration: none;
+            opacity: 0; pointer-events: none;
+            transform: translateY(20px);
+            transition: all .3s;
+            z-index: 50;
+        }
+        .scroll-top.visible {
+            opacity: 1; pointer-events: all;
+            transform: translateY(0);
+        }
+        .scroll-top:hover { background: #7c75ff; transform: translateY(-3px); }
+
+        /* ── ANIMATIONS ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity .7s cubic-bezier(.23,1,.32,1), transform .7s cubic-bezier(.23,1,.32,1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── MOBILE ── */
+        @media (max-width: 900px) {
+            #home { grid-template-columns: 1fr; gap: 3rem; padding-top: 7rem; }
+            .hero-visual { display: none; }
+            .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+            .contact-wrap { grid-template-columns: 1fr; gap: 2rem; }
+            .nav-links { display: none; }
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 65px; left: 0; right: 0;
+                background: rgba(10,10,15,.97);
+                padding: 2rem 5vw;
+                gap: 1.5rem;
+                backdrop-filter: blur(20px);
+                border-bottom: 1px solid var(--border);
+            }
+            .nav-toggle { display: block; }
+            footer { flex-direction: column; text-align: center; }
+        }
+        @media (max-width: 600px) {
+            section { padding: 4rem 5vw; }
+            .work-tabs { flex-wrap: wrap; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-follower" id="cursor-follower"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+    <a href="#home" class="nav-logo">naqib<span>.</span></a>
+    <ul class="nav-links" id="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav-toggle" id="nav-toggle"><i class='bx bx-menu'></i></button>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-grid-lines"></div>
+
+    <div class="hero-content">
+        <div class="hero-eyebrow">Frontend Developer</div>
+        <h1 class="hero-title">
+            <span class="line">Hi, I'm</span>
+            <span class="line accent">Naqib</span>
+            <span class="line stroke">Zakir.</span>
+        </h1>
+        <p class="hero-desc">
+            Crafting beautiful digital experiences with <strong>Blazor .NET, React, and modern web tech.</strong> Computer Science student at Air University, Islamabad.
+        </p>
+        <div class="hero-cta">
+            <a href="https://wa.me/+923075764607?text=Hello%20Naqib,%20I%20want%20to%20contact%20you." class="btn btn-primary" target="_blank">
+                <i class='bx bxl-whatsapp'></i> Let's Talk
+            </a>
+            <a href="assets/cv/mycv.pdf" download class="btn btn-outline">
+                <i class='bx bx-download'></i> Download CV
+            </a>
+        </div>
+        <div class="hero-stats">
+            <div class="stat-item">
+                <div class="stat-num">3+</div>
+                <div class="stat-label">Projects Done</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">5+</div>
+                <div class="stat-label">Technologies</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">85%</div>
+                <div class="stat-label">Blazor .NET</div>
+            </div>
+        </div>
     </div>
 
-    <div class="home__social">
-        <a href="https://www.behance.net/naqibullah6" class="home__social-icon" target="_blank">
-            <i class='bx bxl-behance'></i>
-        </a>
-        <a href="https://web.facebook.com/naaqeeb.razy" class="home__social-icon" target="_blank">
-            <i class='bx bxl-facebook'></i>
-        </a>
-        <a href="https://www.linkedin.com/in/naqib-zakir-303711183/" class="home__social-icon" target="_blank">
-            <i class='bx bxl-linkedin'></i>
-        </a>
-        <a href="https://github.com/naqiib" class="home__social-icon" target="_blank">
-            <i class='bx bxl-github'></i>
-        </a>
-    </div>
-
-    <div class="home__img">
-        <svg class="home__blob" viewBox="0 0 479 467" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <mask id="mask0" mask-type="alpha">
-                <path d="M9.19024 145.964C34.0253 76.5814 114.865 54.7299 184.111 29.4823C245.804 6.98884 311.86 -14.9503 370.735 14.143C431.207 44.026 467.948 107.508 477.191 174.311C485.897 237.229 454.931 294.377 416.506 344.954C373.74 401.245 326.068 462.801 255.442 466.189C179.416 469.835 111.552 422.137 65.1576 361.805C17.4835 299.81 -17.1617 219.583 9.19024 145.964Z"/>
-            </mask>
-            <g mask="url(#mask0)">
-                <path d="M9.19024 145.964C34.0253 76.5814 114.865 54.7299 184.111 29.4823C245.804 6.98884 311.86 -14.9503 370.735 14.143C431.207 44.026 467.948 107.508 477.191 174.311C485.897 237.229 454.931 294.377 416.506 344.954C373.74 401.245 326.068 462.801 255.442 466.189C179.416 469.835 111.552 422.137 65.1576 361.805C17.4835 299.81 -17.1617 219.583 9.19024 145.964Z"/>
-                <image class="home__blob-img" x="50" y="60" href="assets/img/perfil.png"/>
-            </g>
-        </svg>
+    <div class="hero-visual">
+        <div class="hero-blob-wrap">
+            <div class="hero-blob-bg"></div>
+            <div class="hero-blob-ring"></div>
+            <div class="hero-avatar">
+                <i class='bx bx-user'></i>
+            </div>
+            <div class="hero-social">
+                <a href="https://www.behance.net/naqibullah6" target="_blank"><i class='bx bxl-behance'></i></a>
+                <a href="https://web.facebook.com/naaqeeb.razy" target="_blank"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/in/naqib-zakir-303711183/" target="_blank"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://github.com/naqiib" target="_blank"><i class='bx bxl-github'></i></a>
+            </div>
+        </div>
     </div>
 </section>
 
-            <!--===== ABOUT =====-->
-            <section class="about section " id="about">
-                <h2 class="section-title">About</h2>
+<!-- ABOUT -->
+<section id="about">
+    <div class="reveal">
+        <div class="section-tag">About Me</div>
+        <h2 class="section-title">Who I Am</h2>
+        <p class="section-subtitle">Passionate developer blending design thinking with technical expertise.</p>
+    </div>
+    <div class="about-grid">
+        <div class="about-img-wrap reveal">
+            <div class="about-img-box">
+                <i class='bx bx-code-alt'></i>
+            </div>
+            <div class="about-img-badge">
+                <span class="num">3+</span>
+                <span class="label">Years Experience</span>
+            </div>
+        </div>
+        <div class="reveal">
+            <p class="about-text">I'm a <strong>Frontend Developer</strong> specializing in <strong>Blazor .NET, HTML, CSS, JavaScript, and React</strong>. I also bring experience in <strong>graphic design, video editing, and SQL database management</strong>.</p>
+            <p class="about-text">Currently pursuing my <strong>Computer Science degree</strong> at Air University Islamabad. My Final Year Project is an <strong>Online Book Sale &amp; Purchase Platform</strong> — allowing users to sell old books and buy used books affordably, built with Blazor .NET and SQL Server.</p>
+            <p class="about-text">Previously worked as a <strong>Photo Quality Controller</strong>, handling wedding photos, teasers, and albums with high-quality delivery standards.</p>
+            <div class="about-chips">
+                <span class="chip">Blazor .NET</span>
+                <span class="chip">React</span>
+                <span class="chip">HTML/CSS</span>
+                <span class="chip">JavaScript</span>
+                <span class="chip">SQL Server</span>
+                <span class="chip">C#</span>
+                <span class="chip">AWS Cloud</span>
+                <span class="chip">Figma</span>
+                <span class="chip">Git & GitHub</span>
+            </div>
+        </div>
+    </div>
+</section>
 
-                <div class="about__container bd-grid">
-                    <div class="about__img">
-                        <img src="assets/img/about.jpg" alt="">
-                    </div>
-                    
-                    <div>
-                        <h2 class="about__subtitle">I am Naqib Ullah</h2>
-                        <p class="about__text">
-                            I am a <b>Frontend Developer</b> with expertise in <b>Blazor .NET, HTML, CSS, JavaScript, and React</b>.  
-                            I also have experience in <b>graphic design, video editing, and SQL database management</b>.  
-                            Currently, I am pursuing my <b>Computer Science degree</b> at Air University Islamabad.  
-                    
-                            Previously, I worked as a <b>Photo Quality Controller</b>, handling wedding photos, teasers, and albums,  
-                            ensuring high-quality content delivery.  
-                    
-                            My <b>Final Year Project (FYP)</b> is an <b>Online Book Sale & Purchase Platform</b> that allows users  
-                            to sell old books at a lower price and buy used books affordably.  
-                            The platform enables users to create accounts, set up stores, and exchange books conveniently.  
-                            It is built using <b>Blazor .NET for the frontend and SQL Server for database management</b>.  
-                    
-                            I am passionate about learning new technologies and solving real-world problems through innovative solutions.  
-                        </p>           
-                    </div>                               
+<!-- SKILLS -->
+<section id="skills">
+    <div class="reveal">
+        <div class="section-tag">Expertise</div>
+        <h2 class="section-title">My Skills</h2>
+        <p class="section-subtitle">Technologies and tools I work with daily.</p>
+    </div>
+    <div class="skills-grid">
+        <div class="skill-card reveal">
+            <div class="skill-icon"><i class='bx bxl-html5'></i></div>
+            <div class="skill-name">Web Development</div>
+            <div class="skill-bar-wrap"><div class="skill-bar" style="--w:.80"></div></div>
+            <div class="skill-percent">80%</div>
+        </div>
+        <div class="skill-card reveal">
+            <div class="skill-icon"><i class='bx bxl-microsoft'></i></div>
+            <div class="skill-name">.NET with Blazor</div>
+            <div class="skill-bar-wrap"><div class="skill-bar" style="--w:.85"></div></div>
+            <div class="skill-percent">85%</div>
+        </div>
+        <div class="skill-card reveal">
+            <div class="skill-icon"><i class='bx bxl-c-plus-plus'></i></div>
+            <div class="skill-name">C++ / C#</div>
+            <div class="skill-bar-wrap"><div class="skill-bar" style="--w:.70"></div></div>
+            <div class="skill-percent">70%</div>
+        </div>
+        <div class="skill-card reveal">
+            <div class="skill-icon"><i class='bx bxs-data'></i></div>
+            <div class="skill-name">SQL & Databases</div>
+            <div class="skill-bar-wrap"><div class="skill-bar" style="--w:.80"></div></div>
+            <div class="skill-percent">80%</div>
+        </div>
+        <div class="skill-card reveal">
+            <div class="skill-icon"><i class='bx bx-cloud'></i></div>
+            <div class="skill-name">AWS Cloud</div>
+            <div class="skill-bar-wrap"><div class="skill-bar" style="--w:.75"></div></div>
+            <div class="skill-percent">75%</div>
+        </div>
+        <div class="skill-card reveal">
+            <div class="skill-icon"><i class='bx bx-palette'></i></div>
+            <div class="skill-name">UI/UX Design</div>
+            <div class="skill-bar-wrap"><div class="skill-bar" style="--w:.85"></div></div>
+            <div class="skill-percent">85%</div>
+        </div>
+    </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+    <div class="reveal">
+        <div class="section-tag">Portfolio</div>
+        <h2 class="section-title">My Work</h2>
+        <p class="section-subtitle">Selected development and design projects.</p>
+    </div>
+    <div class="work-tabs reveal">
+        <button class="tab-btn active" data-panel="dev">Development</button>
+        <button class="tab-btn" data-panel="uiux">UI/UX Design</button>
+    </div>
+
+    <!-- Dev Projects -->
+    <div class="work-panel active dev-grid" id="panel-dev">
+        <div class="project-card reveal">
+            <div class="project-num">01</div>
+            <div class="project-title">Online Book Sale & Purchase Platform</div>
+            <p class="project-desc">A full-stack platform allowing users to buy and sell used books. Features user accounts, store setup, and book exchange functionality.</p>
+            <div class="project-tags">
+                <span class="tag">Blazor .NET</span>
+                <span class="tag">SQL Server</span>
+                <span class="tag">C#</span>
+                <span class="tag">Entity Framework</span>
+            </div>
+            <a href="https://github.com/naqiib/Fyp.git" class="project-link" target="_blank">
+                <i class='bx bxl-github'></i> View on GitHub <i class='bx bx-arrow-right'></i>
+            </a>
+        </div>
+
+        <div class="project-card reveal">
+            <div class="project-num">02</div>
+            <div class="project-title">Restaurant Management System</div>
+            <p class="project-desc">Web-based application for managing restaurant operations — orders, menu updates, and customer feedback in a modern interface.</p>
+            <div class="project-tags">
+                <span class="tag">React</span>
+                <span class="tag">Node.js</span>
+                <span class="tag">JavaScript</span>
+            </div>
+            <a href="https://github.com/naqiib/restaurant-.git" class="project-link" target="_blank">
+                <i class='bx bxl-github'></i> View on GitHub <i class='bx bx-arrow-right'></i>
+            </a>
+        </div>
+
+        <div class="project-card reveal">
+            <div class="project-num">03</div>
+            <div class="project-title">Portfolio Website</div>
+            <p class="project-desc">Designed and built a responsive portfolio showcasing skills, projects, and contact information with modern design aesthetics.</p>
+            <div class="project-tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+            </div>
+            <a href="#" class="project-link">
+                View Project <i class='bx bx-arrow-right'></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- UI/UX Projects -->
+    <div class="work-panel uiux-grid" id="panel-uiux">
+        <div class="uiux-card reveal">
+            <div class="uiux-thumb uiux-thumb-1">
+                <i class='bx bx-mobile-alt'></i>
+                <div class="uiux-thumb-overlay">
+                    <a href="https://www.behance.net/naqibullah6" target="_blank">View Project</a>
                 </div>
-            </section>
-
-            <!--===== SKILLS =====-->
-            <section class="skills section" id="skills">
-                <h2 class="section-title">Skills</h2>
-
-                <div class="skills__container bd-grid">          
-                    <div>
-                        <h2 class="skills__subtitle">Professional Skills</h2>
-                        <p class="skills__text">
-                            I specialize in <b>Frontend Development</b> with <b>Blazor .NET, React, HTML, CSS, and JavaScript</b>.  
-                            I also have experience in <b>C#, SQL, SQL Server, AWS</b>, and tools like <b>Git, GitHub, .NET Core, and Entity Framework</b>.  
-                        </p>
-                        
-                        <div class="skills__data">
-                            <div class="skills__names">
-                                <i class='bx bxl-html5 skills__icon'></i>
-                                <span class="skills__name">Web Development</span>
-                            </div>
-                            <div class="skills__bar skills__html"></div>
-                            <div>
-                                <span class="skills__percentage">80%</span>
-                            </div>
-                        </div>
-
-                        <div class="skills__data">
-                            <div class="skills__names">
-                                <i class='bx bxl-c-plus-plus skills__icon'></i>
-                                <span class="skills__name">C++</span>
-                            </div>
-                            <div class="skills__bar skills__css"></div>
-                            <div>
-                                <span class="skills__percentage">70%</span>
-                            </div>
-                        </div>
-
-                        <div class="skills__data">
-                            <div class="skills__names">
-                                <i class='bx bxl-microsoft skills__icon'></i>
-                                <span class="skills__name">.NET with Blazor</span>
-                            </div>
-                            <div class="skills__bar skills__js"></div>
-                            <div>
-                                <span class="skills__percentage">85%</span>
-                            </div>
-                        </div>
-
-                        <div class="skills__data">
-                            <div class="skills__names">
-                                <i class='bx bxs-data skills__icon'></i>
-                                <span class="skills__name">SQL & Databases</span>
-                            </div>
-                            <div class="skills__bar skills__sql"></div>
-                            <div>
-                                <span class="skills__percentage">80%</span>
-                            </div>
-                        </div>
-
-                        <div class="skills__data">
-                            <div class="skills__names">
-                                <i class='bx bx-cloud skills__icon'></i>
-                                <span class="skills__name">AWS Cloud</span>
-                            </div>
-                            <div class="skills__bar skills__aws"></div>
-                            <div>
-                                <span class="skills__percentage">75%</span>
-                            </div>
-                        </div>
-
-                        <div class="skills__data">
-                            <div class="skills__names">
-                                <i class='bx bx-palette skills__icon'></i>
-                                <span class="skills__name">UI/UX Design</span>
-                            </div>
-                            <div class="skills__bar skills__ux"></div>
-                            <div>
-                                <span class="skills__percentage">85%</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div>              
-                        <img src="assets/img/computer-skills.jpg" alt="Skills" class="skills__img">
-                    </div>
+            </div>
+            <div class="uiux-body">
+                <div class="uiux-title">Mobile App Design</div>
+                <p class="uiux-desc">Fitness tracking app — user-friendly navigation with modern aesthetics.</p>
+            </div>
+        </div>
+        <div class="uiux-card reveal">
+            <div class="uiux-thumb uiux-thumb-2">
+                <i class='bx bx-desktop'></i>
+                <div class="uiux-thumb-overlay">
+                    <a href="https://www.behance.net/naqibullah6" target="_blank">View Project</a>
                 </div>
-            </section>
-
-  <!--===== DEVELOPMENT WORK =====-->
-<section class="work section" id="development-work">
-    <h2 class="section-title">Development Work</h2>
-
-    <div class="work__container bd-grid">
-        <!-- Final Year Project -->
-        <div class="work__item">
-            <h3 class="work__title">Online Book Sale & Purchase Platform</h3>
-            <p class="work__description">
-                A platform built using <b>Blazor .NET</b> and <b>SQL Server</b> that allows users to buy and sell used books.  
-                Features include user accounts, store setup, and book exchange functionality.
-            </p>
-            <a href="https://github.com/naqiib/Fyp.git" class="work__link" target="_blank">
-                <i class='bx bxl-github'></i> View on GitHub
-            </a>
+            </div>
+            <div class="uiux-body">
+                <div class="uiux-title">Website Redesign</div>
+                <p class="uiux-desc">Corporate website redesign for improved UX — prototyped in Figma.</p>
+            </div>
         </div>
-
-        <!-- Restaurant Management System -->
-        <div class="work__item">
-            <h3 class="work__title">Restaurant Management System</h3>
-            <p class="work__description">
-                A web-based application for managing restaurant operations, including order management, menu updates, and customer feedback.  
-                Built using <b>React</b> for the frontend and <b>Node.js</b> for the backend.
-            </p>
-            <a href="https://github.com/naqiib/restaurant-.git" class="work__link" target="_blank">
-                <i class='bx bxl-github'></i> View on GitHub
-            </a>
-        </div>
-
-        <!-- Portfolio Website -->
-        <div class="work__item">
-            <h3 class="work__title">Portfolio Website</h3>
-            <p class="work__description">
-                Designed and developed a responsive portfolio website using <b>HTML, CSS, and JavaScript</b>.  
-                Showcased my skills, projects, and contact information.
-            </p>
-            <a href="#" class="work__link">View Project</a>
+        <div class="uiux-card reveal">
+            <div class="uiux-thumb uiux-thumb-3">
+                <i class='bx bx-bar-chart-alt-2'></i>
+                <div class="uiux-thumb-overlay">
+                    <a href="https://www.behance.net/naqibullah6" target="_blank">View Project</a>
+                </div>
+            </div>
+            <div class="uiux-body">
+                <div class="uiux-title">Dashboard UI</div>
+                <p class="uiux-desc">Data analytics dashboard — clean design with intuitive visualizations.</p>
+            </div>
         </div>
     </div>
 </section>
 
-            <!--===== UI/UX WORK =====-->
-<!--===== UI/UX WORK =====-->
-<section class="work section" id="uiux-work">
-    <h2 class="section-title">UI/UX Work</h2>
-
-    <div class="work__container bd-grid">
-        <!-- Mobile App Design -->
-        <div class="work__item">
-            <div class="work__img">
-                <img src="assets/img/app-mob.webp" alt="Mobile App Design">
+<!-- CONTACT -->
+<section id="contact">
+    <div class="reveal">
+        <div class="section-tag">Get In Touch</div>
+        <h2 class="section-title">Let's Work Together</h2>
+        <p class="section-subtitle">Have a project in mind? Let's build something great.</p>
+    </div>
+    <div class="contact-wrap">
+        <div class="contact-info reveal">
+            <h3>Say Hello</h3>
+            <p>I'm currently available for freelance work and open to full-time opportunities. If you have a project that you want to get started, feel free to reach out!</p>
+            <div class="contact-details">
+                <div class="contact-item">
+                    <i class='bx bx-envelope'></i>
+                    naqeeebknn@gmail.com
+                </div>
+                <div class="contact-item">
+                    <i class='bx bx-phone'></i>
+                    +92 307 5764607
+                </div>
+                <div class="contact-item">
+                    <i class='bx bx-map'></i>
+                    Islamabad, Pakistan
+                </div>
             </div>
-            <h3 class="work__title">Mobile App Design</h3>
-            <p class="work__description">
-                Designed a mobile app interface for a fitness tracking application.  
-                Focused on user-friendly navigation and modern aesthetics.
-            </p>
-            <a href="https://www.behance.net/naqibullah6" class="work__link" target="_blank">
-                <i class='bx bxl-behance'></i> View on Behance
-            </a>
         </div>
-
-        <!-- Website Redesign -->
-        <div class="work__item">
-            <div class="work__img">
-                <img src="assets/img/book web.png" alt="Website Redesign">
+        <div class="contact-form reveal">
+            <div class="form-group">
+                <label class="form-label">Your Name</label>
+                <input type="text" id="name" class="form-control" placeholder="Naqib Zakir">
             </div>
-            <h3 class="work__title">Website Redesign</h3>
-            <p class="work__description">
-                Redesigned a corporate website to improve user experience and visual appeal.  
-                Used <b>Figma</b> for prototyping and wireframing.
-            </p>
-            <a href="https://www.behance.net/naqibullah6" class="work__link" target="_blank">
-                <i class='bx bxl-behance'></i> View on Behance
-            </a>
-        </div>
-
-        <!-- Dashboard UI -->
-        <div class="work__item">
-            <div class="work__img">
-                <img src="assets/img/dash.png" alt="Dashboard UI">
+            <div class="form-group">
+                <label class="form-label">Message</label>
+                <textarea id="message" class="form-control" placeholder="Hi Naqib, I'd like to discuss..."></textarea>
             </div>
-            <h3 class="work__title">Dashboard UI</h3>
-            <p class="work__description">
-                Created a responsive dashboard UI for a data analytics platform.  
-                Focused on clean design and intuitive data visualization.
-            </p>
-            <a href="https://www.behance.net/naqibullah6" class="work__link" target="_blank">
-                <i class='bx bxl-behance'></i> View on Behance
-            </a>
+            <button class="btn btn-primary" onclick="sendWhatsApp()" style="width:100%;justify-content:center;border:none;">
+                <i class='bx bxl-whatsapp'></i> Send via WhatsApp
+            </button>
         </div>
     </div>
 </section>
-    <!--===== CONTACT =====-->
-<section class="contact section" id="contact">
-    <h2 class="section-title">Contact</h2>
 
-    <div class="contact__container bd-grid">
-        <!-- WhatsApp Message Form -->
-        <form class="contact__form" id="whatsapp-form">
-            <div class="contact__input-group">
-                <input type="text" id="name" placeholder="Your Name" class="contact__input" required>
-            </div>
-            <div class="contact__input-group">
-                <textarea id="message" cols="0" rows="6" placeholder="Your Message" class="contact__input" required></textarea>
-            </div>
-            <button type="submit" class="contact__button button">Send via WhatsApp</button>
-        </form>
-
-        <!-- Contact Information -->
-      
-           
+<!-- FOOTER -->
+<footer>
+    <div class="footer-logo">naqib<span>.</span></div>
+    <p class="footer-copy">© 2025 Naqib Zakir. All rights reserved.</p>
+    <div class="footer-social">
+        <a href="https://www.behance.net/naqibullah6" target="_blank"><i class='bx bxl-behance'></i></a>
+        <a href="https://web.facebook.com/naaqeeb.razy" target="_blank"><i class='bx bxl-facebook'></i></a>
+        <a href="https://www.linkedin.com/in/naqib-zakir-303711183/" target="_blank"><i class='bx bxl-linkedin'></i></a>
+        <a href="https://github.com/naqiib" target="_blank"><i class='bx bxl-github'></i></a>
     </div>
-<!--===== DOWNLOAD CV SECTION =====-->
-<!--===== DOWNLOAD CV SECTION =====-->
-<section class="download-cv section" id="download-cv">
-    <div class="download-cv__container bd-grid">
-        <h2 class="download-cv__title">Download My CV</h2>
-        <a href="assets/cv/mycv.pdf" download="Naqib_Zakir_CV.pdf" class="download-cv__button button">
-            <i class='bx bx-download'></i> Download CV
-        </a>
-    </div>
-</section>
-
-<!--===== FOOTER =====-->
-<footer class="footer">
-    <!-- Footer content remains the same -->
 </footer>
 
-<!--===== FOOTER =====-->
-<footer class="footer">
-    <div class="footer__container bd-grid">
-        <!-- Quick Links -->
-        
+<a href="#home" class="scroll-top" id="scroll-top"><i class='bx bx-up-arrow-alt'></i></a>
 
-        <!-- Contact Information -->
-        <div class="footer__section">
-           
-            <ul class="footer__contact">
-                <li><i class='bx bx-envelope'></i> naqeeebknn@gmail.com</li>
-                <li><i class='bx bx-phone'></i> +92 307 5764607</li>
-                <li><i class='bx bx-map'></i> Islamabad, Pakistan</li>
-            </ul>
-        </div>
+<script>
+    // Cursor
+    const cursor = document.getElementById('cursor');
+    const follower = document.getElementById('cursor-follower');
+    let fx = 0, fy = 0, cx = 0, cy = 0;
+    document.addEventListener('mousemove', e => {
+        cx = e.clientX; cy = e.clientY;
+        cursor.style.left = cx + 'px';
+        cursor.style.top = cy + 'px';
+    });
+    function animateFollower() {
+        fx += (cx - fx) * .12;
+        fy += (cy - fy) * .12;
+        follower.style.left = fx + 'px';
+        follower.style.top = fy + 'px';
+        requestAnimationFrame(animateFollower);
+    }
+    animateFollower();
 
-        <!-- Newsletter Subscription -->
-        
+    // Nav toggle
+    document.getElementById('nav-toggle').addEventListener('click', () => {
+        document.getElementById('nav-links').classList.toggle('open');
+    });
 
-    <!-- Social Media Links -->
-    <div class="footer__social">
-        <a href="https://www.behance.net/naqibullah6" class="footer__icon" target="_blank">
-            <i class='bx bxl-behance'></i>
-        </a>
-        <a href="https://web.facebook.com/naaqeeb.razy" class="footer__icon" target="_blank">
-            <i class='bx bxl-facebook'></i>
-        </a>
-        <a href="https://www.linkedin.com/in/naqib-zakir-303711183/" class="footer__icon" target="_blank">
-            <i class='bx bxl-linkedin'></i>
-        </a>
-        <a href="https://github.com/naqiib" class="footer__icon" target="_blank">
-            <i class='bx bxl-github'></i>
-        </a>
-    </div>
+    // Tabs
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.work-panel').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('panel-' + btn.dataset.panel).classList.add('active');
+        });
+    });
 
-    <!-- Back to Top Button -->
-    <a href="#home" class="footer__scroll-top">
-        <i class='bx bx-up-arrow-alt'></i>
-    </a>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => entry.target.classList.add('visible'), i * 60);
+            }
+        });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
 
-    <!-- Copyright Notice -->
-    <p class="footer__copy">&#169; 2023 Naqib Zakir. All rights reserved.</p>
-</footer>
+    // Skill bars animate
+    const skillObs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.querySelectorAll('.skill-bar').forEach(bar => {
+                    bar.style.width = (parseFloat(bar.style.getPropertyValue('--w')) * 100) + '%';
+                    bar.classList.add('animated');
+                });
+            }
+        });
+    }, { threshold: 0.3 });
+    document.querySelectorAll('.skill-card').forEach(c => skillObs.observe(c));
 
+    // Skill bar widths
+    document.querySelectorAll('.skill-bar').forEach(bar => {
+        const w = bar.style.getPropertyValue('--w');
+        bar.style.width = 0;
+        bar.dataset.w = w;
+    });
+    const skillBarObs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.style.width = (parseFloat(entry.target.dataset.w) * 100) + '%';
+                }, 200);
+            }
+        });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.skill-bar').forEach(b => skillBarObs.observe(b));
 
-        <!--===== SCROLL REVEAL =====-->
-        <script src="https://unpkg.com/scrollreveal"></script>
+    // Scroll top
+    const scrollTop = document.getElementById('scroll-top');
+    window.addEventListener('scroll', () => {
+        scrollTop.classList.toggle('visible', window.scrollY > 400);
+    });
 
-        <!--===== MAIN JS =====-->
-        <script src="assets/js/main.js"></script>
-    </body>
+    // WhatsApp
+    function sendWhatsApp() {
+        const name = document.getElementById('name').value.trim();
+        const msg = document.getElementById('message').value.trim();
+        if (!name || !msg) { alert('Please fill in your name and message.'); return; }
+        const text = encodeURIComponent(`Hello Naqib, I'm ${name}.\n\n${msg}`);
+        window.open(`https://wa.me/+923075764607?text=${text}`, '_blank');
+    }
+</script>
+</body>
 </html>
